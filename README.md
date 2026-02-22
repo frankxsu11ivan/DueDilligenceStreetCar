@@ -261,3 +261,24 @@ Excel: checkbox checklist for tracking across multiple locations
 PowerPoint: for project reviews
 
 Tell me your preference, and I’ll generate the file(s) with your logo/header and any project identifiers you want (e.g., corridor name, project ID).Provide your feedback on BizChat
+mport csv
+
+# Define header and generate all rows for the truth table
+header = ['PM','811','GIS','CUT','DEAD','HOT','VIS','KNOWN']
+rows = []
+for pm in (0,1):
+    for oc in (0,1):
+        for gis in (0,1):
+            for cut in (0,1):
+                for dead in (0,1):
+                    for hot in (0,1):
+                        vis = 1 if (cut or dead or hot) else 0
+                        known = 1 if (pm or oc or gis or vis) else 0
+                        rows.append([pm, oc, gis, cut, dead, hot, vis, known])
+
+# Write CSV
+fname = 'unknown_utility_truth_table.csv'
+with open(fname, 'w', newline='') as f:
+    writer = csv.writer(f)
+    writer.writerow(header)
+    writer.writerows(rows)
